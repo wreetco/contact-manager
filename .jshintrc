@@ -1,0 +1,3 @@
+{
+  "predef": ["angular", "module", "document", "FastClick"]
+}

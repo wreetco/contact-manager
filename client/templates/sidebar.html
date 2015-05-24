@@ -1,0 +1,26 @@
+<a class="button expand" zf-hard-toggle="tag_manager" style="margin-top: 1em;">Manage</a>
+<zf-action-sheet id="tag_manager">
+<zf-as-content position="bottom">
+	<li><a href="#" class="sheet_fix">Add Tag</a></li>
+</zf-as-content>
+</zf-action-sheet>
+
+
+<section class="block-list with-icons">
+	<li class="hide-for-medium">
+		<img src="http://placehold.it/1x1" alt="">
+		<a zf-close="sub-nav">Close</a>
+	</li>
+	<li>
+		<img zf-iconic="" icon="envelope" size="medium" />
+		<a ng-href="/#!/unassigned">Unassigned</a>
+	</li>
+	<li>
+		<img zf-iconic="" icon="document" size="medium" />
+		<a ng-href="/#!/open">Open</a>
+	</li>
+	<li>
+		<img zf-iconic="" icon="circle-check" size="medium" />
+		<a href="#">Archived</a>
+	</li>
+</section>
