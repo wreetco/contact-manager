@@ -1,8 +1,6 @@
-# Foundation for Apps Template
+# wreetco Contact Manager 0.1.0
 
-This is the default template project for Foundation for Apps, powered by Gulp, Angular, and libsass. It provides you with a basic template to get started with Foundation for Apps and Angular.
-
-If you're already an Angular developer, you may instead want to install the components into your own stack using Bower: `bower install foundation-apps`
+wreetco's Contact manager software
 
 ## Requirements
 
@@ -19,7 +17,7 @@ You'll need the following software installed to get started.
 Clone this repository, where `app` is the name of your app.
 
 ```bash
-git clone https://github.com/zurb/foundation-apps-template.git app
+git clone git remote add origin https://github.com/wreetco/contact-manager.git app
 ```
 
 Change into the directory.
