@@ -17,7 +17,7 @@ You'll need the following software installed to get started.
 Clone this repository, where `app` is the name of your app.
 
 ```bash
-git clone git remote add origin https://github.com/wreetco/contact-manager.git app
+git clone https://github.com/wreetco/contact-manager.git app
 ```
 
 Change into the directory.
