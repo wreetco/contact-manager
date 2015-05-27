@@ -6,7 +6,7 @@
 				<div class="">
 					<h2 style="margin: 0;">
 						{{ $parent.selected_contact.first_name }}&nbsp;{{ $parent.selected_contact.last_name }}
-						&nbsp;-&nbsp;<span style="font-size: .7em; color: #666;">{{ $parent.selected_contact.employer.name }}</span>
+					<small> - {{ $parent.selected_contact.employer.name }}</small>
 					</h2>
 					<p style="color: #666; font-size: .7em; margin: 0 0 1em 1em;">
 						Created: {{ $parent.selected_contact.created_date }}
@@ -116,6 +116,19 @@
 			<!-- tags tab -->
 			<div zf-tab="" title="Tags">
 				<h2>Contact Tags</h2>
+				<div class="small-up-2 grid-block" id="tag_list">
+					<div class="grid-block" ng-repeat-start="tag in $parent.selected_contact.tags">
+						Tag:
+					</div>
+					<div class="grid-block" ng-repeat-end>
+						{{ tag.tag }}
+						<span style="position: relative; left: .5em;">
+							<img zf-iconic="" class="iconic-color-alert" icon="circle-x" size="small" />
+						</span>
+					</div>
+				</div>	
+				
+				
 			</div>
 			<!-- end tags tab -->
 			<!-- sent mails tab -->

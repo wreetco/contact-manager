@@ -18,10 +18,9 @@
 			return {
 				getContacts: function(params, callback) {
 					var contacts = [];
-					// handle parameters
-					
-					$http.post('http://localhost:3000/api/v1/contacts', {search_params: params, api_token: "78bb831366f4defd38ba3a1d414986e2"}).
-					success(function(data, status, headers, config) {
+					// handle parameters					
+					$http.post('http://localhost:3000/api/v1/contacts', {search_params: params, api_token: "78bb831366f4defd38ba3a1d414986e2"})
+					.success(function(data, status, headers, config) {
 						contacts = angular.fromJson(data);
 						console.log(contacts);
 						callback(contacts);
@@ -42,10 +41,32 @@
 				} // end setSelectedContact method
 				
 			};
+		}) // end contactservice
+	
+		.factory('AccountService', function($http) {
+		
 		})
+		// end accountservice
+	
+		.factory('TagService', function($http) {
+			return {
+				getAccountTags: function(callback) {
+					// get all tags for all contacts in the account, used in the sidebar mostly
+					$http.post('http://localhost:3000/api/v1/accounts/tags', {api_token: "78bb831366f4defd38ba3a1d414986e2"})
+					.success(function(data, status, headers, config) {
+						callback(angular.fromJson(data));
+					}).
+					error(function(data, status, headers, config) {
+						console.log('Request failed: ' + status);
+					});
+					
+				} // end getAccountTags method
+			}; // end return
+		})
+		// end tagservice
 	
 		// controllers
-		.controller('OpenContactsCtrl', function($scope, ContactService) {
+		.controller('OpenContactsCtrl', function($scope, ContactService, TagService) {
 			$scope.contacts = []; // init empty list
 			$scope.selected_contact = {};
 			$scope.getOpenContacts = function() {
@@ -62,6 +83,10 @@
 				$scope.selected_contact = ContactService.setSelectedContact(contact_id, $scope.contacts);
 			}; // end selectcontact
 			$scope.getOpenContacts();
+		
+			TagService.getAccountTags(function(tags) {
+				console.log(tags);
+			});
 		}) // end OpenContactsCtrl controller
 	
 		.controller('UnassignedContactsCtrl', function($scope, ContactService) {
