@@ -1,0 +1,6 @@
+<section class="block-list" id="contact_list">
+	<li><input type="text" placeholder="Search"></li>
+	<li ng-repeat='contact in contacts' ng-click="selectContact(contact._id.$oid)">
+		<a href="#" zf-toggle="sidebar">{{ contact.first_name }} {{ contact.last_name }}</a>
+	</li>
+</section>

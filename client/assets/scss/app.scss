@@ -1,2 +1,51 @@
 @import "settings";
 @import "foundation";
+
+$primary-color: #56B6FF;
+
+.box-shadow-menu {
+  position: relative;
+  padding-left: 1.25em;
+}
+
+.box-shadow-menu:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.25em;
+  width: 1em;
+  height: 0.15em;
+  background: $primary_color;
+  box-shadow: 
+    0 0.25em 0 0 $primary_color,
+    0 0.5em 0 0 $primary_color;
+}
+
+#full_table {
+	background-color: #f3f3f3;
+	border: 1px solid #ccc;
+}
+
+#full_table div {
+	padding: .5em;
+	border-bottom: 1px solid rgb(220, 220, 220);
+}	
+
+#full_table div div {
+	border-bottom: 0px;
+	
+}
+
+#full_table div:nth-child(odd) {
+	position: relative;
+}
+
+#full_table div:nth-child(odd) div {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+#full_table div:nth-child(even) {
+	background-color: rgb(230, 230, 230);
+}

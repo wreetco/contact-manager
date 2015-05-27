@@ -5,25 +5,15 @@ controller: UnassignedContactsCtrl
 ---
 
 <!-- copy this to include a left sidebar in your template -->
-<div ng-include="'templates/sidebar.html'" class="fast bounceInOut medium-3 medium-grid-content panel panel-left panel panel-left" ></div>
+<div zf-panel="" id="sidebar" class="fast bounceInOut medium-3 medium-grid-content panel panel-left panel panel-left">
+<span ng-include="'templates/sidebar.html'"></span>
+</div>
 <!-- end sidebar -->
 
-<div class="medium-3 grid-content small-12" style="border-left: 1px solid #60626a;">
-	<section class="block-list">
-		<li><input type="text" placeholder="Search"></li>
-		<li ng-repeat='contact in contacts' ng-click="selectContact(contact.id)">
-			<a href="#">{{ contact.first_name }} {{ contact.last_name }}</a>
-		</li>
-	</section>
-</div>
-</div>
+<!-- contact list -->
+<div class="medium-3 grid-content" ng-include="'templates/contact_list.html'" style="border-left: 1px solid #60626a;"></div>
+<!-- end contact list -->
 
-
-<div class="fast bounceInOut small-12 medium-6 medium-grid-content panel panel-right panel panel-right" ng-transclude="" zf-panel="" id="message" position="right" zf-closable="panel" style="background-color: #fff; color: #222;">
-	<a class="hide-for-medium button tiny ng-scope" zf-close="message">Back</a>
-	<h2 class="ng-scope">{{ selected_contact.subject }}</h2>
-	<p class="ng-scope">{{ selected_contact.first_name }} {{ selected_contact.last_name }} - {{ selected_contact.create_date }}</p>
-	<p>
-		{{ selected_contact.message }}
-	</p>
-</div>
+<!-- contact view -->
+<div class="fast bounceInOut medium-6 medium-grid-content panel panel-right panel panel-right" ng-include="'templates/contact_view.html'" id="message" position="right" zf-closable="panel" style="background-color: #fff; color: #222; padding: 0;"></div>
+<!-- end contact view -->

@@ -279,7 +279,7 @@ $primary-color: #56B6FF;
 // $actionsheet-border-color: #ccc;
 // $actionsheet-animate: transform opacity;
 // $actionsheet-animation-speed: 0.25s;
-// $actionsheet-width: 300px;
+$actionsheet-width: 200px;
 // $actionsheet-radius: 4px;
 // $actionsheet-shadow: 0 -3px 10px rgba(black, 0.25);
 // $actionsheet-padding: $global-padding;
@@ -554,7 +554,7 @@ $input-background: $body-background;
 // $panel-size-vertical: 300px;
 // $panel-padding: 0;
 
-// $panel-background: #fff;
+$panel-background: $body-background;
 // $panel-shadow: 3px 0 10px rgba(black, 0.25);
 
 // DEPRECATED: these variables will be removed in a future version.
