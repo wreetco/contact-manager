@@ -66,10 +66,10 @@
 		// end tagservice
 	
 		// controllers
-		.controller('OpenContactsCtrl', function($scope, ContactService, TagService) {
+		.controller('AppCtrl', function($scope, ContactService, TagService) {
 			$scope.contacts = []; // init empty list
 			$scope.selected_contact = {};
-			$scope.getOpenContacts = function() {
+			$scope.getContacts = function() {
 				var params = {
 					assigned: "Chase"
 				};
@@ -77,34 +77,17 @@
 					$scope.contacts = contacts;
 					$scope.selected_contact = $scope.contacts[0];
 				});
-			};
+			}; // end getContacts
 		
 			$scope.selectContact = function(contact_id) {
 				$scope.selected_contact = ContactService.setSelectedContact(contact_id, $scope.contacts);
 			}; // end selectcontact
-			$scope.getOpenContacts();
+			$scope.getContacts();
 		
 			TagService.getAccountTags(function(tags) {
 				console.log(tags);
 			});
-		}) // end OpenContactsCtrl controller
-	
-		.controller('UnassignedContactsCtrl', function($scope, ContactService) {
-			$scope.contacts = []; // init empty list
-			$scope.selected_contact = {};
-			$scope.getUnassignedContacts = function() {
-				ContactService.getContacts({assigned:false}, function(contacts) {
-					$scope.contacts = contacts;
-					$scope.selected_contact = $scope.contacts[0];
-				});
-			};
-		
-			$scope.selectContact = function(contact_id) {
-				$scope.selected_contact = ContactService.setSelectedContact(contact_id, $scope.contacts);
-			}; // end selectcontact
-			$scope.getUnassignedContacts();
-		}) // end unassignedContacts controller
-
+		}) // end end AppCtrl
 	
 		// end module
   ;
