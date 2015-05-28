@@ -31,13 +31,31 @@
 </section>
 
 <section id="account_tags_list">
-	<div class="grid-block">
-		<div class="grid-content">
-			<p  ng-repeat="tag in tags">
-				<a href="/#!/">
-					{{ tag.tag }}
-				</a>
-			</p>
+	<h3>Tags</h3>
+	<div class="grid-block small-up-2">
+		<div class="grid-block" ng-repeat-start="tag in tags">
+			<!-- delete modal -->
+			<div zf-modal="" id="confirm_delete_tag" overlay="false" overlay-close="false" class="small dialog">
+				<h4>Are you sure?</h4>
+				<p>
+					If you delete this tag, it will be removed from <b>all</b> of your contacts. Continue?
+				</p>
+				<div class="grid-block">
+					<div style="margin: 0 auto;">
+						<a ng-click="removeAccountTag(tag._id.$oid)" zf-close="" class="alert button">Yes</a>
+						<a zf-close="" class="secondary button" style="color: #000;">No</a>
+					</div>
+				</div>
+			</div>
+			<!--end delete modal -->
+			<a href="#">
+				{{ tag.tag }}
+			</a>
+		</div>
+		<div class="grid-block" ng-repeat-end>
+			<a style="border: 0;" zf-open="confirm_delete_tag">
+				<img style="position: relative; top: .2em;" zf-iconic="" class="iconic-color-alert" icon="circle-x" size="small" />
+			</a>
 		</div>
 	</div>
 </section>

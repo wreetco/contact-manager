@@ -21,6 +21,10 @@ $primary-color: #56B6FF;
     0 0.5em 0 0 $primary_color;
 }
 
+#sidebar h1, #sidebar h2, #sidebar h3 {
+	color: #fff;
+}
+
 #full_table {
 	background-color: #f3f3f3;
 	border: 1px solid #ccc;
@@ -54,9 +58,25 @@ $primary-color: #56B6FF;
 	padding: 1em;
 }
 
-#account_tags_list p {
+#account_tags_list a {
 	font-size: 1.25em;
 }
+
+#account_tags_list a {
+	color: #fff;
+	border-bottom: 1px solid transparent;
+}	
+
+#account_tags_list a:hover {
+	border-bottom: 1px solid #fff;
+}	
+
+
+#sidebar a > .iconic * {
+	fill: #F04124;
+}
+
+
 
 
 

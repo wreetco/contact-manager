@@ -4,7 +4,6 @@
   angular.module('application', [
     'ui.router',
     'ngAnimate',
-
     //foundation
     'foundation',
     'foundation.dynamicRouting',
@@ -54,12 +53,22 @@
 					$http.post('http://localhost:3000/api/v1/accounts/tags', {api_token: "78bb831366f4defd38ba3a1d414986e2"})
 					.success(function(data, status, headers, config) {
 						callback(angular.fromJson(data));
-					}).
-					error(function(data, status, headers, config) {
+					})
+					.error(function(data, status, headers, config) {
 						console.log('Request failed: ' + status);
 					});
-					
-				} // end getAccountTags method
+				}, // end getAccountTags method
+				
+				removeAccountTag: function(tag_id, callback) {
+					// remove tag_id from the tag_ids of account
+					$http.post('http://localhost:3000/api/v1/accounts/tags', {api_token: "78bb831366f4defd38ba3a1d414986e2"})
+					.success(function(data, status, headers, config) {
+						callback(angular.fromJson(data));
+					})
+					.error(function(data, status, headers, config) {
+						console.log('Request failed: ' + status);
+					});
+				}
 			}; // end return
 		})
 		// end tagservice
@@ -88,6 +97,12 @@
 				});
 			}; // end getAccount tags method
 		
+			$scope.removeAccountTag = function(tag_id) {
+				TagService.removeAccountTag(tag_id, function(resp) {
+					// remove callback
+				});
+			}; // end removeAccountTag method
+		
 			// initializers
 			if ($scope.contacts.length < 1)
 				$scope.getContacts({});
@@ -100,15 +115,18 @@
 		// end module
   ;
 
-  config.$inject = ['$urlRouterProvider', '$locationProvider'];
+  config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
 
-  function config($urlProvider, $locationProvider, $rootScope) {
+  function config($stateProvider, $urlProvider, $locationProvider, $rootScope) {
 		// handle states
-		// we have bound the AppCtrl controller to $rootScope: $rootScope.AppCtrl
+		// we have bound the AppCtrl controller to $rootScope: $rootScope.AppCtrl		
+		
+		
 		$urlProvider
 		.when('/contacts/:assignment', function($rootScope) {
-			// we will get all of the leads of specified assignment
-			// assignemnt will be 'open', 'unassigned', later maybe 'user_name/id'
+			var params = {
+				assignment: ""	
+			}; // end params
 			
 		})
     .when('/contacts/tag/:tag_name', function($rootScope) {
