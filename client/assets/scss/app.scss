@@ -33,7 +33,6 @@ $primary-color: #56B6FF;
 
 #full_table div div {
 	border-bottom: 0px;
-	
 }
 
 #full_table div:nth-child(odd) {
@@ -53,6 +52,10 @@ $primary-color: #56B6FF;
 #tag_list div {
 	border: 1px solid red;
 	padding: 1em;
+}
+
+#account_tags_list p {
+	font-size: 1.25em;
 }
 
 
