@@ -1,5 +1,5 @@
 .sheet_fix {
-	position: relative;
 	border: 1px solid red !important;
 	left: 8em !important;
+	position: relative;
 }

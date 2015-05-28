@@ -18,11 +18,11 @@
 	</li>
 	<li>
 		<img zf-iconic="" icon="envelope" size="medium" />
-		<a ng-href="/#!/unassigned">Unassigned</a>
+		<a ng-href="/#!/contacts/unassigned">Unassigned</a>
 	</li>
 	<li>
 		<img zf-iconic="" icon="document" size="medium" />
-		<a ng-href="/#!/open">Open</a>
+		<a ng-href="/#!/contacts/open">Open</a>
 	</li>
 	<li>
 		<img zf-iconic="" icon="circle-check" size="medium" />
@@ -48,7 +48,7 @@
 				</div>
 			</div>
 			<!--end delete modal -->
-			<a href="#">
+			<a ng-href="/#!/contacts/tag/{{tag.tag}}">
 				{{ tag.tag }}
 			</a>
 		</div>

@@ -21,6 +21,8 @@
 					$http.post('http://localhost:3000/api/v1/contacts', {search_params: params, api_token: "78bb831366f4defd38ba3a1d414986e2"})
 					.success(function(data, status, headers, config) {
 						contacts = angular.fromJson(data);
+						console.log('contacts back');
+						console.log(contacts);
 						callback(contacts);
 					}).
 					error(function(data, status, headers, config) {
@@ -81,6 +83,8 @@
 			$scope.tags = [];
 			// methods
 			$scope.getContacts = function(params) {	
+				console.log('stateparams');
+				console.log($rootScope);
 				ContactService.getContacts(params, function(contacts) {
 					$scope.contacts = contacts;
 					$scope.selected_contact = $scope.contacts[0];
@@ -115,25 +119,36 @@
 		// end module
   ;
 
-  config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
+  config.$inject = ['$urlRouterProvider', '$locationProvider'];
 
-  function config($stateProvider, $urlProvider, $locationProvider, $rootScope) {
+  function config($urlProvider, $locationProvider, $rootScope) {
 		// handle states
 		// we have bound the AppCtrl controller to $rootScope: $rootScope.AppCtrl		
-		
-		
 		$urlProvider
+		// wanna see some hacks?
 		.when('/contacts/:assignment', function($rootScope) {
+			// get the url param
+			var assigned = location.hash.split('/')[2];
 			var params = {
-				assignment: ""	
+				assigned: assigned
 			}; // end params
-			
-		})
+			// now we can get our contacts setup
+			$rootScope.$state.go('contacts', {}, {location: false}).then(function() {
+				$rootScope.AppCtrl.getContacts(params);	
+			});
+		}) // end assignment
     .when('/contacts/tag/:tag_name', function($rootScope) {
 			// use the account tag list to come up with a list of all 
 			// contacts that match :tag_name param
-			
-		})
+			var tag = location.hash.split('/')[3];
+			var params = {
+				tag: tag
+			}; // end params
+			// now we can get our contacts setup
+			$rootScope.$state.go('contacts', {}, {location: false}).then(function() {
+				$rootScope.AppCtrl.getContacts(params);	
+			});
+		}) // end tags
 		; // end states
 		
     $urlProvider.otherwise('/contacts');
