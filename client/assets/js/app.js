@@ -61,7 +61,7 @@
 				
 				removeAccountTag: function(tag_id, callback) {
 					// remove tag_id from the tag_ids of account
-					$http.post('http://localhost:3000/api/v1/accounts/tags', {api_token: "78bb831366f4defd38ba3a1d414986e2"})
+					$http.post('http://localhost:3000/api/v1/accounts/tags/remove', {api_token: "78bb831366f4defd38ba3a1d414986e2", tag_id: tag_id})
 					.success(function(data, status, headers, config) {
 						callback(angular.fromJson(data));
 					})
