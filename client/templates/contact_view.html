@@ -3,140 +3,79 @@
 		<div zf-tabs="">
 			<!-- contact tab -->
 			<div zf-tab="" title="Contact">
-				<div class="">
-					<h2 style="margin: 0;">
-						{{ $parent.selected_contact.first_name }}&nbsp;{{ $parent.selected_contact.last_name }}
-					<small> - {{ $parent.selected_contact.employer.name }}</small>
-					</h2>
-					<p style="color: #666; font-size: .7em; margin: 0 0 1em 1em;">
-						Created: {{ $parent.selected_contact.created_date }}
-					</p>
-					<!-- contact grid -->
-					<div class="grid-block small-up-2">
-						<div class="grid-block">
-							<b>Email:</b>
-						</div>
-						<div class="grid-block">
-							{{ $parent.selected_contact.email.email_address}}
-						</div>
-						<div class="grid-block">
-							<b>Business phone:</b>
-						</div>
-						<div class="grid-block">
-							{{ $parent.selected_contact.phone_numbers.business }}
-						</div>
-						<div class="grid-block">
-							<b>Mobile phone:</b>
-						</div>
-						<div class="grid-block">
-							{{ $parent.selected_contact.phone_numbers.mobile }}
-						</div>
-						
-						<div class="grid-block">
-							<b>Department:</b>
-						</div>
-						<div class="grid-block">
-							{{ $parent.selected_contact.employer.department }}
-						</div>
-					</div>
-					<!-- end contact grid -->
-					<h4>Full Contact Details</h4>
-					<!-- full table -->
-					<div id="full_table" class="grid-block small-up-2 medium-up-4">
-						<div class="grid-block">
-							<div>Lead source:</div>
-						</div>
-						<div class="grid-block">
-							{{ $parent.selected_contact.source }}
-						</div>
-						<div class="grid-block">
-							<div>Employer:</div>
-						</div>
-						<div class="grid-block">
-							{{ $parent.selected_contact.employer.name }}
-						</div>
-						
-						<div class="grid-block">
-							<div>Street Address:</div>
-						</div>
-						<div class="grid-block">
-							{{ $parent.selected_contact.address.street }} 
-							{{ $parent.selected_contact.address.unit }}
-						</div>
-						<div class="grid-block">
-							<div>Department:</div>
-						</div>
-						<div class="grid-block">
-							{{ $parent.selected_contact.employer.department }}
-						</div>
-						<div class="grid-block">
-							<div>City:</div>
-						</div>
-						<div class="grid-block">
-							{{ $parent.selected_contact.address.city }}
-						</div>
-						<div class="grid-block">
-							<div>Title:</div>
-						</div>
-						<div class="grid-block">
-							{{ $parent.selected_contact.employer.title }}
-						</div>		
-						<div class="grid-block">
-							<div>State:</div>
-						</div>
-						<div class="grid-block">
-							{{ $parent.selected_contact.address.state }}
-						</div>
-						<!-- phones repeat -->
-						<div class="grid-block" ng-repeat-start="(label, number) in $parent.selected_contact.phone_numbers">
-							<div><span style="text-transform: capitalize;">{{ label }}</span> phone:</div>
-						</div>
-						<div class="grid-block" ng-repeat-end>
-							{{ number }}
-						</div>
-						<!-- end phones repeat -->
-						<div class="grid-block" ng-repeat-start="(label, account) in $parent.selected_contact.social_accounts">
-							<div><span style="text-transform: capitalize;">{{ label }}:</span></div>
-						</div>
-						<div class="grid-block" ng-repeat-end>
-							{{ account }}
-						</div>
-					</div>
-					<!-- end full table -->
-				</div><!-- wrapper -->
+				<div ng-include="'templates/contact_tab.html'" ng-controller="AppCtrl"></div>
 			</div>
 			<!-- end contact tab -->
-			<!-- submissions tab -
-			<div zf-tab="" title="Form Submission">
+			<!-- submissions tab -->
+			<div zf-tab="" title="Inquiry">
 				<div>
-					<h2>Form </h2>
+					<h2>Form Data</h2>
+					<div id="full_table" class="grid-block small-up-2 medium-up-4">
+						<!-- form obj repeat -->
+						<div class="grid-block" ng-repeat-start="(field, val) in $parent.selected_contact.contact_form_data">
+							<div><span style="text-transform: capitalize;">{{ field }}</span>:</div>
+						</div>
+						<div class="grid-block" ng-repeat-end>
+							{{ val }}
+						</div>
+						<!-- end form obj repeat -->
+					</div>
 				</div>
 			</div>
-			end submissions -->
+			<!-- end submissions -->
 			<!-- tags tab -->
 			<div zf-tab="" title="Tags">
 				<h2>Contact Tags</h2>
-				<div class="small-up-2 grid-block" id="tag_list">
-					<div class="grid-block" ng-repeat-start="tag in $parent.selected_contact.tags">
-						Tag:
-					</div>
-					<div class="grid-block" ng-repeat-end>
-						{{ tag.tag }}
-						<span style="position: relative; left: .5em;">
-							<img zf-iconic="" class="iconic-color-alert" icon="circle-x" size="small" />
-						</span>
-					</div>
+				<div class="small-up-1 grid-block" id="tag_list">
+					<ul class="no-bullet" style="margin-left: 1em;">
+						<li ng-repeat="tag in $parent.selected_contact.tags">
+							{{ tag.tag }}
+							<span style="position: relative; left: .5em;">
+								<img zf-iconic="" class="iconic-color-alert" icon="circle-x" size="small" />
+							</span>
+						</li>
+					</ul>
 				</div>	
 				
 				
 			</div>
 			<!-- end tags tab -->
 			<!-- sent mails tab -->
+			<!--
 			<div zf-tab="" title="Sent Emails">
 				Emails<br /><br />Emails<br /><br />Emails<br /><br />
 			</div>
+			-->
 			<!-- end sent mails -->
+			<div zf-tab="" title="Manage" zf-hard-toggle="manage_contact">
+				<zf-action-sheet id="manage_contact" style="position:relative;left: 45%;">
+					<zf-as-content position="bottom" >
+						<p style="color: #000;">
+							<strong>Contact Options</strong>
+						</p>
+						<ul>
+							<li><a href="#" zf-open="add_tag">Add Tag</a></li>
+							<li><a href="#">Assign Contact</a></li>
+						</ul>
+					</zf-as-content>
+				</zf-action-sheet>
+				<div ng-include="'templates/contact_tab.html'" ng-controller="AppCtrl"></div>
+			</div>
 		</div><!-- end tab toggle def -->
 	</div><!-- end left block -->
-	
 </div>
+
+<!-- add tag modal -->
+<div zf-modal="" id="add_tag" overlay="false" overlay-close="true" class="tiny dialog">
+	<h4>Add Tag</h4>
+	<div class="grid-block">
+		<label>
+			Enter tag
+			<span class="inline-label">
+				<input style="background-color: #fff; color: #000;" type="search" placeholder="Some tag">
+				<a ng-click="test()" href="#" class="button">Add</a>
+			</span>
+		</label>
+	</div>
+</div>
+<!--end add tag modal -->

@@ -107,6 +107,13 @@
 				});
 			}; // end removeAccountTag method
 		
+			$scope.addTagtoContact = function(tag_text) {
+				TagService.addTagtoContact(tag_text, function(resp) {
+					// callback
+					
+				});
+			}; // end addTagtoContact method
+		
 			// initializers
 			if ($scope.contacts.length < 1)
 				$scope.getContacts({});

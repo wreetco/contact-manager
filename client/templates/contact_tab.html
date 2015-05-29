@@ -1,0 +1,101 @@
+				<div class="">
+					<h2 style="margin: 0;">
+						{{ $parent.selected_contact.first_name }}&nbsp;{{ $parent.selected_contact.last_name }}
+					<small> - {{ $parent.selected_contact.employer.name }}</small>
+					</h2>
+					<p style="color: #666; font-size: .7em; margin: 0 0 1em 1em;">
+						Created: {{ $parent.selected_contact.created_date }}
+					</p>
+					<!-- contact grid -->
+					<div class="grid-block small-up-2">
+						<div class="grid-block">
+							<b>Email:</b>
+						</div>
+						<div class="grid-block">
+							{{ $parent.selected_contact.email.email_address}}
+						</div>
+						<div class="grid-block">
+							<b>Business phone:</b>
+						</div>
+						<div class="grid-block">
+							{{ $parent.selected_contact.phone_numbers.business }}
+						</div>
+						<div class="grid-block">
+							<b>Mobile phone:</b>
+						</div>
+						<div class="grid-block">
+							{{ $parent.selected_contact.phone_numbers.mobile }}
+						</div>
+						
+						<div class="grid-block">
+							<b>Department:</b>
+						</div>
+						<div class="grid-block">
+							{{ $parent.selected_contact.employer.department }}
+						</div>
+					</div>
+					<!-- end contact grid -->
+					<h4>Full Contact Details</h4>
+					<!-- full table -->
+					<div id="full_table" class="grid-block small-up-2 medium-up-4">
+						<div class="grid-block">
+							<div>Lead source:</div>
+						</div>
+						<div class="grid-block">
+							{{ $parent.selected_contact.source }}
+						</div>
+						<div class="grid-block">
+							<div>Employer:</div>
+						</div>
+						<div class="grid-block">
+							{{ $parent.selected_contact.employer.name }}
+						</div>
+						
+						<div class="grid-block">
+							<div>Street Address:</div>
+						</div>
+						<div class="grid-block">
+							{{ $parent.selected_contact.address.street }} 
+							{{ $parent.selected_contact.address.unit }}
+						</div>
+						<div class="grid-block">
+							<div>Department:</div>
+						</div>
+						<div class="grid-block">
+							{{ $parent.selected_contact.employer.department }}
+						</div>
+						<div class="grid-block">
+							<div>City:</div>
+						</div>
+						<div class="grid-block">
+							{{ $parent.selected_contact.address.city }}
+						</div>
+						<div class="grid-block">
+							<div>Title:</div>
+						</div>
+						<div class="grid-block">
+							{{ $parent.selected_contact.employer.title }}
+						</div>		
+						<div class="grid-block">
+							<div>State:</div>
+						</div>
+						<div class="grid-block">
+							{{ $parent.selected_contact.address.state }}
+						</div>
+						<!-- phones repeat -->
+						<div class="grid-block" ng-repeat-start="(label, number) in $parent.selected_contact.phone_numbers">
+							<div><span style="text-transform: capitalize;">{{ label }}</span> phone:</div>
+						</div>
+						<div class="grid-block" ng-repeat-end>
+							{{ number }}
+						</div>
+						<!-- end phones repeat -->
+						<div class="grid-block" ng-repeat-start="(label, account) in $parent.selected_contact.social_accounts">
+							<div><span style="text-transform: capitalize;">{{ label }}:</span></div>
+						</div>
+						<div class="grid-block" ng-repeat-end>
+							{{ account }}
+						</div>
+					</div>
+					<!-- end full table -->
+				</div><!-- wrapper -->

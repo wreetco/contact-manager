@@ -3,6 +3,10 @@
 
 $primary-color: #56B6FF;
 
+.debug {
+	border: 1px solid red !important; 
+}
+
 .box-shadow-menu {
   position: relative;
   padding-left: 1.25em;
@@ -54,7 +58,6 @@ $primary-color: #56B6FF;
 }
 
 #tag_list div {
-	border: 1px solid red;
 	padding: 1em;
 }
 

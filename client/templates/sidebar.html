@@ -1,27 +1,32 @@
-<button class="button expand" zf-hard-toggle="tag_manager" style="margin-top: 1em;">Manage</button>
+<button class="button expand" zf-hard-toggle="tag_manager" style="margin-top: 1em;">Contacts</button>
 <zf-action-sheet id="tag_manager" style="position:relative;left: 50%;">
 <zf-as-content position="bottom" >
 	<p style="color: #000;">
-		Manage Tags
+		<strong>Contacts</strong>
 	</p>
 	<ul>
-		<li><a href="#">Delete Tag</a></li>
+		<li><a href="#">Add Contact</a></li>
 	</ul>
 </zf-as-content>
 </zf-action-sheet>
 
 
 <section class="block-list with-icons">
-	<li class="hide-for-medium">
+	<li class="hide-for-medium"> 
 		<img src="http://placehold.it/1x1" alt="">
 		<a zf-close="sub-nav">Close</a>
 	</li>
+	<li style="border-bottom: 0px;">
+		<img zf-iconic="" icon="document" size="medium" />
+		<a ng-href="/#!/contacts/all">All Contacts</a>
+	</li>
+	<li>
 	<li>
 		<img zf-iconic="" icon="envelope" size="medium" />
 		<a ng-href="/#!/contacts/unassigned">Unassigned</a>
 	</li>
 	<li>
-		<img zf-iconic="" icon="document" size="medium" />
+		<img zf-iconic="" icon="person" size="medium" />
 		<a ng-href="/#!/contacts/mine">My Contacts</a>
 	</li>
 	<li>
@@ -52,9 +57,9 @@
 				{{ tag.tag }}
 			</a>
 		</div>
-		<div class="grid-block" ng-repeat-end>
+		<div class="grid-block" style="position:relative;" ng-repeat-end>
 			<a style="border: 0;" zf-open="confirm_delete_tag">
-				<img zf-iconic="" class="iconic-color-alert" icon="circle-x" size="small" />
+				<img zf-iconic="" class="iconic-color-alert" icon="circle-x" size="small" style="position:absolute;right:1em;top:.25em;" />
 			</a>
 		</div>
 	</div>
