@@ -80,7 +80,24 @@
 					.error(function(data, status, headers, config) {
 						console.log('Request failed: ' + status);
 					});
-				}
+				}, // end removeAccountTag method
+				
+				addTagtoContact: function(tag_text, contact_id, callback) {
+					// do it, add the tag
+					var params = {
+						api_token: "78bb831366f4defd38ba3a1d414986e2",
+						tag_text: tag_text,
+						contact_id: contact_id
+					}
+					$http.post('http://localhost:3000/api/v1/contacts/tags/add', params)
+					.success(function(data, status, headers, config) {
+						callback(angular.fromJson(data));
+					})
+					.error(function(data, status, headers, config) {
+						console.log('Request failed: ' + status);
+					});
+				} // end addtagtocontact method
+				
 			}; // end return
 		})
 		// end tagservice
@@ -115,9 +132,11 @@
 				});
 			}; // end removeAccountTag method
 		
-			$scope.addTagtoContact = function(tag_text) {
-				TagService.addTagtoContact(tag_text, function(resp) {
-					// callback
+			$scope.new_tag = {};
+			$scope.addTagtoContact = function() {
+				var contact_id = $scope.selected_contact._id.$oid;
+				TagService.addTagtoContact($scope.new_tag.tag, contact_id, function(resp) {
+					console.log(resp);
 				});
 			}; // end addTagtoContact method
 		
