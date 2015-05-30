@@ -21,8 +21,6 @@
 					$http.post('http://localhost:3000/api/v1/contacts', {search_params: params, api_token: "78bb831366f4defd38ba3a1d414986e2"})
 					.success(function(data, status, headers, config) {
 						contacts = angular.fromJson(data);
-						console.log('contacts back');
-						console.log(contacts);
 						callback(contacts);
 					}).
 					error(function(data, status, headers, config) {
@@ -38,7 +36,19 @@
 					}
 					// we don't wanna be here
 					return false;
-				} // end setSelectedContact method
+				}, // end setSelectedContact method
+				
+				newContact: function(new_contact, callback) {
+					// add a contact to this account, ah yeah
+					$http.post('http://localhost:3000/api/v1/contacts/new', {contact: new_contact, api_token: "78bb831366f4defd38ba3a1d414986e2"})
+					.success(function(data, status, headers, config) {
+						// this bodes well...
+						callback(data);
+					}).
+					error(function(data, status, headers, config) {
+						console.log('Request failed: ' + status);
+					});
+				} // end newContact method
 				
 			};
 		}) // end contactservice
@@ -83,8 +93,6 @@
 			$scope.tags = [];
 			// methods
 			$scope.getContacts = function(params) {	
-				console.log('stateparams');
-				console.log($rootScope);
 				ContactService.getContacts(params, function(contacts) {
 					$scope.contacts = contacts;
 					$scope.selected_contact = $scope.contacts[0];
@@ -110,9 +118,22 @@
 			$scope.addTagtoContact = function(tag_text) {
 				TagService.addTagtoContact(tag_text, function(resp) {
 					// callback
-					
 				});
 			}; // end addTagtoContact method
+		
+			$scope.new_contact = {email:{}, phone_numbers: {}, social_accounts: {}, source: "WCM"}; // what we will ng-model too 
+			$scope.newContact = function() {
+				// add a new contact to the account
+				// first name, last name and email are required
+				if (!$scope.new_contact.first_name || !$scope.new_contact.last_name || !$scope.new_contact.email.email_address) {
+					alert('NO!');
+					return 0;
+				}
+				// let's hit the contact service with this
+				ContactService.newContact($scope.new_contact, function(resp) {
+					console.log(resp);
+				});
+			}; 
 		
 			// initializers
 			if ($scope.contacts.length < 1)

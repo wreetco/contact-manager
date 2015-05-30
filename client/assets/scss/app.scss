@@ -80,9 +80,28 @@ $primary-color: #56B6FF;
 }
 
 
+#manage_contact_button {
+	position: absolute;
+	right: .5em;
+	top: .5em;
+	width: 30%;
+}
 
+.contact_form input {
+	background-color: #fff;
+	color: #222;
+}	
 
+.contact_form input:focus, .contact_form input:hover {
+	background-color: #fff;
+	color: #222;
+}	
 
+.form_section label {
+	padding-left: .5em;
+	width: 100%;
+	margin-right: 1em;
+}
 
 
 

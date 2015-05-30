@@ -5,11 +5,135 @@
 		<strong>Contacts</strong>
 	</p>
 	<ul>
-		<li><a href="#">Add Contact</a></li>
+		<li><a href="#" zf-open="new_contact">Add Contact</a></li>
 	</ul>
 </zf-as-content>
 </zf-action-sheet>
 
+<!-- new contact modal -->
+<div zf-modal="" id="new_contact" overlay="false" overlay-close="false" class="default dialog">
+	<div class="grid-block vertical contact_form">
+		<!-- 
+			# prop list for while we build this out
+			_id => {BSON::ID}
+			email
+			phone_numbers => {}
+			address => {}
+			first_name
+			last_name
+			source
+			account_id
+			employer => {}
+			assignments => {bool, []}
+			social_accounts => {}
+			created_date
+			tag_ids => []
+			contact_form_data = {}
+		-->
+		<div class="grid-block">
+			<h4 style="color: #222;">Add Contact</h4>
+		</div>
+		<div class="grid-block form_section vertical">
+			<h5 style="margin-bottom: .5em;">Contact Info</h5>
+			<div class="grid-block">
+				<div class="grid-block">
+					<label>
+						First name
+						<input type="text" placeholder="First name" ng-model="new_contact.first_name">
+					</label>	
+				</div>
+				<div class="grid-block">
+					<label>
+						Last name
+						<input type="text" placeholder="Last name" ng-model="new_contact.last_name">
+					</label>	
+				</div>
+			</div>
+		</div>
+		<div class="grid-block form_section">
+			<label>
+				Email
+				<input type="email" placeholder="Email" ng-model="new_contact.email.email_address">
+			</label>	
+		</div>
+		<div class="grid-block form_section">
+			<div class="grid-block">
+				<label>
+					Mobile phone 
+					<input type="text" placeholder="Mobile phone" ng-model="new_contact.phone_numbers.mobile">
+				</label>	
+			</div>
+			<div class="grid-block">
+				<label>
+					Business phone
+					<input type="text" placeholder="Business phone" ng-model="new_contact.phone_numbers.business">
+				</label>	
+			</div>
+		</div>
+		<!-- next section -->
+		<!--
+		<div class="grid-block">
+			<h5 style="margin-bottom: .5em;">Address Info</h5>
+		</div>
+		<div class="grid-block vertical">
+			<div class="grid-block form_section">
+				<label>
+					Street
+					<input type="text" placeholder="Street address">
+				</label>
+			</div>
+		</div>
+		<div class="grid-block form_section">
+			<div class="grid-block">
+				<label>
+					City
+					<input type="text" placeholder="City">
+				</label>
+			</div>
+			<div class="grid-block">
+				<label>
+					State
+					<input type="text" placeholder="State">
+				</label>
+			</div>
+			<div class="grid-block">
+				<label>
+					Zip
+					<input type="text" placeholder="Zip">
+				</label>
+			</div>
+		</div>
+		-->
+		<div class="grid-block vertical">
+			<div class="grid-block">
+				<h5 style="margin-bottom: .5em;">Social</h5>
+			</div>
+			<div class="grid-block">
+				<div class="grid-block form_section">
+					<div class="grid-block">
+						<label>
+							Facebook
+							<input type="text" placeholder="Facebook URL" ng-model="new_contact.social_accounts.facebook">
+						</label>
+					</div>
+					<div class="grid-block">
+						<label>
+							Twitter
+							<input type="text" placeholder="Twitter handle" ng-model="new_contact.social_accounts.twitter">
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="grid-block" style="margin: 0 33.3%;">
+			<button class="button success expand" ng-click="newContact();">Save</button>
+		</div>
+		
+		
+	</div><!-- end master grid block -->
+</div> <!-- end zf-modal -->
+<!-- end new contact modal -->
 
 <section class="block-list with-icons">
 	<li class="hide-for-medium"> 
@@ -21,7 +145,6 @@
 		<a ng-href="/#!/contacts/all">All Contacts</a>
 	</li>
 	<li>
-	<li>
 		<img zf-iconic="" icon="envelope" size="medium" />
 		<a ng-href="/#!/contacts/unassigned">Unassigned</a>
 	</li>
@@ -29,10 +152,12 @@
 		<img zf-iconic="" icon="person" size="medium" />
 		<a ng-href="/#!/contacts/mine">My Contacts</a>
 	</li>
+	<!--
 	<li>
 		<img zf-iconic="" icon="circle-check" size="medium" />
 		<a href="#">Archived</a>
 	</li>
+	-->
 </section>
 
 <section id="account_tags_list">
