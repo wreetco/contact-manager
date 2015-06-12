@@ -18,7 +18,7 @@
 				getContacts: function(params, callback) {
 					var contacts = [];
 					// handle parameters					
-					$http.post('http://localhost:3000/api/v1/contacts', {search_params: params, api_token: TokenService.getToken()})
+					$http.post('http://wcmapi.wreet.co/api/v1/contacts', {search_params: params, api_token: TokenService.getToken()})
 					.success(function(data, status, headers, config) {
 						contacts = angular.fromJson(data);
 						callback(contacts);
@@ -40,7 +40,7 @@
 				
 				newContact: function(new_contact, callback) {
 					// add a contact to this account, ah yeah
-					$http.post('http://localhost:3000/api/v1/contacts/new', {contact: new_contact, api_token: TokenService.getToken()})
+					$http.post('http://wcmapi.wreet.co/api/v1/contacts/new', {contact: new_contact, api_token: TokenService.getToken()})
 					.success(function(data, status, headers, config) {
 						// this bodes well...
 						callback(data);
@@ -63,7 +63,7 @@
 							password: credz.password 
 						}
 					}; 
-					$http.post('http://localhost:3000/users/sign_in.json', req)
+					$http.post('http://wcmapi.wreet.co/users/sign_in.json', req)
 					.success(function(data, status, headers, config) {
 						// this bodes well...
 						callback(data);
@@ -81,7 +81,7 @@
 			return {
 				getAccountTags: function(callback) {
 					// get all tags for all contacts in the account, used in the sidebar mostly
-					$http.post('http://localhost:3000/api/v1/accounts/tags', {api_token: TokenService.getToken()})
+					$http.post('http://wcmapi.wreet.co/api/v1/accounts/tags', {api_token: TokenService.getToken()})
 					.success(function(data, status, headers, config) {
 						callback(angular.fromJson(data));
 					})
@@ -92,7 +92,7 @@
 				
 				removeAccountTag: function(tag_id, callback) {
 					// remove tag_id from the tag_ids of account
-					$http.post('http://localhost:3000/api/v1/accounts/tags/remove', {api_token: TokenService.getToken(), tag_id: tag_id})
+					$http.post('http://wcmapi.wreet.co/api/v1/accounts/tags/remove', {api_token: TokenService.getToken(), tag_id: tag_id})
 					.success(function(data, status, headers, config) {
 						callback(angular.fromJson(data));
 					})
@@ -108,7 +108,7 @@
 						tag_text: tag_text,
 						contact_id: contact_id
 					};
-					$http.post('http://localhost:3000/api/v1/contacts/tags/add', params)
+					$http.post('http://wcmapi.wreet.co/api/v1/contacts/tags/add', params)
 					.success(function(data, status, headers, config) {
 						callback(angular.fromJson(data));
 					})
