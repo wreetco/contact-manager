@@ -3,8 +3,8 @@
 
   angular.module('application', [
     'ui.router',
+		'ngStorage',
     'ngAnimate',
-    //foundation
     'foundation',
     'foundation.dynamicRouting',
     'foundation.dynamicRouting.animations'
@@ -13,12 +13,12 @@
     .run(run)
 	
 		// factories 
-		.factory('ContactService', function($http) {
+		.factory('ContactService', function($http, TokenService) {
 			return {
 				getContacts: function(params, callback) {
 					var contacts = [];
 					// handle parameters					
-					$http.post('http://localhost:3000/api/v1/contacts', {search_params: params, api_token: "78bb831366f4defd38ba3a1d414986e2"})
+					$http.post('http://localhost:3000/api/v1/contacts', {search_params: params, api_token: TokenService.getToken()})
 					.success(function(data, status, headers, config) {
 						contacts = angular.fromJson(data);
 						callback(contacts);
@@ -40,7 +40,7 @@
 				
 				newContact: function(new_contact, callback) {
 					// add a contact to this account, ah yeah
-					$http.post('http://localhost:3000/api/v1/contacts/new', {contact: new_contact, api_token: "78bb831366f4defd38ba3a1d414986e2"})
+					$http.post('http://localhost:3000/api/v1/contacts/new', {contact: new_contact, api_token: TokenService.getToken()})
 					.success(function(data, status, headers, config) {
 						// this bodes well...
 						callback(data);
@@ -53,16 +53,35 @@
 			};
 		}) // end contactservice
 	
-		.factory('AccountService', function($http) {
-		
+		.factory('UserService', function($http, TokenService) {
+			return {
+				login: function(credz, callback) {
+					// format it for the devise gem sign in
+					var req = {
+						user: {
+							email: credz.user,
+							password: credz.password 
+						}
+					}; 
+					$http.post('http://localhost:3000/users/sign_in.json', req)
+					.success(function(data, status, headers, config) {
+						// this bodes well...
+						callback(data);
+					}).
+					error(function(data, status, headers, config) {
+						console.log('Request failed: ' + status);
+						console.log(data);
+					});
+				}
+			};
 		})
-		// end accountservice
+		// end userservice
 	
-		.factory('TagService', function($http) {
+		.factory('TagService', function($http, TokenService) {
 			return {
 				getAccountTags: function(callback) {
 					// get all tags for all contacts in the account, used in the sidebar mostly
-					$http.post('http://localhost:3000/api/v1/accounts/tags', {api_token: "78bb831366f4defd38ba3a1d414986e2"})
+					$http.post('http://localhost:3000/api/v1/accounts/tags', {api_token: TokenService.getToken()})
 					.success(function(data, status, headers, config) {
 						callback(angular.fromJson(data));
 					})
@@ -73,7 +92,7 @@
 				
 				removeAccountTag: function(tag_id, callback) {
 					// remove tag_id from the tag_ids of account
-					$http.post('http://localhost:3000/api/v1/accounts/tags/remove', {api_token: "78bb831366f4defd38ba3a1d414986e2", tag_id: tag_id})
+					$http.post('http://localhost:3000/api/v1/accounts/tags/remove', {api_token: TokenService.getToken(), tag_id: tag_id})
 					.success(function(data, status, headers, config) {
 						callback(angular.fromJson(data));
 					})
@@ -85,10 +104,10 @@
 				addTagtoContact: function(tag_text, contact_id, callback) {
 					// do it, add the tag
 					var params = {
-						api_token: "78bb831366f4defd38ba3a1d414986e2",
+						api_token: TokenService.getToken(),
 						tag_text: tag_text,
 						contact_id: contact_id
-					}
+					};
 					$http.post('http://localhost:3000/api/v1/contacts/tags/add', params)
 					.success(function(data, status, headers, config) {
 						callback(angular.fromJson(data));
@@ -101,9 +120,20 @@
 			}; // end return
 		})
 		// end tagservice
+		.factory('TokenService', function($localStorage) {
+			return {
+				setToken: function(token) {
+					$localStorage.wcm_token = token;
+				}, // end setToken method
+				getToken: function() {
+					return $localStorage.wcm_token;
+				}
+			};
+		})
+		
 	
 		// controllers
-		.controller('AppCtrl', function($scope, $rootScope, ContactService, TagService) {
+		.controller('AppCtrl', function($scope, $rootScope, $localStorage, ContactService, TagService, UserService, TokenService) {
 			// some of our "models"
 			$scope.contacts = []; // init empty list
 			$scope.selected_contact = {};
@@ -153,6 +183,31 @@
 					console.log(resp);
 				});
 			}; 
+			
+			$scope.login = function() {
+				// handle login request
+				UserService.login($scope.credz, function(resp) {
+					// user service callback
+					if (resp.wreet) {
+						alert('invalid');
+						return 0;
+					}
+					TokenService.setToken(resp.api_token);
+					// remove the modal
+					document.getElementById('login').style.display = "none";
+					// init the things
+					$scope.getContacts({});
+					$scope.getAccountTags();
+				});
+			}; // end login method  
+		
+			//check to see if we are logged in
+			if (!$localStorage.wcm_token) {
+				// we need to make them login, show a modal
+				var login_modal = document.getElementById('login');
+				login_modal.className += " is-active";
+				login_modal.getElementsByClassName('modal')[0].className += " is-active";
+			}
 		
 			// initializers
 			if ($scope.contacts.length < 1)

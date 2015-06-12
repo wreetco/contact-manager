@@ -20,6 +20,28 @@
       </div>
       <div ui-view class="grid-block">
       </div>
+			<!-- login modal -->
+			<div zf-modal="" id="login" overlay="false" overlay-close="false" class="small dialog">
+				<h4>Login</h4>
+				<div class="grid-block form_section vertical contact_form">
+					<div class="grid-block">
+						<label>
+							User
+							<input type="text" placeholder="User" ng-model="AppCtrl.credz.user">
+						</label>	
+					</div>
+					<div class="grid-block">
+						<label>
+							Password
+							<input type="password" placeholder="Password" ng-model="AppCtrl.credz.password">
+						</label>	
+					</div>
+					<div class="grid-block" style="margin: 0 33.3%;">
+						<button class="button success expand" ng-click="AppCtrl.login();">Login</button>
+					</div>
+				</div>
+			</div>
+			<!-- end login modal -->
     </div>
   </body>
 </html>
