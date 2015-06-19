@@ -48,7 +48,18 @@
 					error(function(data, status, headers, config) {
 						console.log('Request failed: ' + status);
 					});
-				} // end newContact method
+				}, // end newContact method
+				
+				//delete contact
+				deleteContact: function(contact_id, callback){
+					$http.post('http://wcmapi.wreet.co/api/v1/contacts/delete', {contact_id: contact_id, api_token: TokenService.getToken()})
+					.success(function(data, status, headers, config) {
+						//good for us
+						callback(data);
+					}).error(function(data, status, headers, config) {
+						console.log('Delete Request Failed: ' + status);
+					});
+				},
 				
 			};
 		}) // end contactservice
@@ -182,7 +193,21 @@
 				ContactService.newContact($scope.new_contact, function(resp) {
 					console.log(resp);
 				});
-			}; 
+			};
+			
+			//delete
+			$scope.deleteContact = function() {
+				var contact_id = $scope.selected_contact._id.$oid;
+				if(!contact_id){
+					alert('No contact ID found');
+					return 0;
+				}
+				//Call contactservice
+				ContactService.deleteContact(contact_id, function(resp){
+					console.log(resp);
+				});
+			}
+			//
 			
 			$scope.login = function() {
 				// handle login request
